@@ -66,36 +66,15 @@
         <p id="loader-text" class="mt-4 text-gray-600 font-medium">Iniciando...</p>
     </div>
 
-    <div id="configModal" class="modal-overlay fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 hidden z-40">
-        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-2xl p-6 space-y-4">
-            <h2 class="text-2xl font-bold text-gray-800">Configurar Dashboard</h2>
-            <p class="text-gray-600">Para o dashboard funcionar, ele precisa ler os dados de uma Planilha Google. Siga os passos abaixo (você só precisa fazer isso uma vez).</p>
-            <div class="space-y-2 text-sm">
-                <p><strong>Passo 1:</strong> Crie uma cópia da planilha modelo clicando aqui: <a href="https://docs.google.com/spreadsheets/d/1vA_N2n-2bYkX_3jC9f8aN7gH6tO5pL4kY3rJ2wX1zQ/copy" target="_blank" class="text-blue-600 hover:underline font-semibold">Modelo de Planilha de Projetos</a>.</p>
-                <p><strong>Passo 2:</strong> Na sua nova planilha, vá em <code class="bg-gray-100 p-1 rounded">Arquivo</code> → <code class="bg-gray-100 p-1 rounded">Compartilhar</code> → <code class="bg-gray-100 p-1 rounded">Publicar na web</code>.</p>
-                <p><strong>Passo 3:</strong> Na janela que abrir, selecione a opção <code class="bg-gray-100 p-1 rounded">Valores separados por vírgula (.csv)</code> e clique em <code class="bg-gray-100 p-1 rounded">Publicar</code>.</p>
-                <p><strong>Passo 4:</strong> Copie a URL gerada e cole no campo abaixo.</p>
-            </div>
-            <div>
-                <label for="sheetUrlInput" class="block text-sm font-medium text-gray-700 mb-1">URL da Planilha (.csv)</label>
-                <input type="text" id="sheetUrlInput" placeholder="Cole a URL gerada aqui" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-            </div>
-            <div class="flex justify-end space-x-3">
-                <button id="saveConfigBtn" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition">Salvar e Carregar</button>
-            </div>
-        </div>
-    </div>
-
     <div class="container mx-auto p-4 sm:p-6 lg:p-8">
         <header class="mb-8 flex justify-between items-center">
             <div>
                 <h1 class="text-3xl font-bold text-gray-900">Dashboard de Governança de Projetos</h1>
                 <p class="text-md text-gray-600 mt-1">Acompanhamento de iniciativas do time de Suporte N2/N3.</p>
             </div>
-            <button id="openConfigBtn" title="Configurar Planilha" class="text-gray-500 hover:text-gray-800">
+            <button id="refreshBtn" title="Atualizar Dados da Planilha" class="text-gray-500 hover:text-gray-800 p-2 rounded-full hover:bg-gray-200 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.438.995s.145.755.438.995l1.003.827c.48.398.587 1.03.26 1.431l-1.296 2.247a1.125 1.125 0 01-1.37.49l-1.217-.456c-.355-.133-.75-.072-1.075.124a6.57 6.57 0 01-.22.127c-.332.183-.582.495-.645.87l-.213 1.281c-.09.542-.56.94-1.11.94h-2.593c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.063-.374-.313-.686-.645-.87a6.52 6.52 0 01-.22-.127c-.324-.196-.72-.257-1.075-.124l-1.217.456a1.125 1.125 0 01-1.37-.49l-1.296-2.247a1.125 1.125 0 01.26-1.431l1.003-.827c.293-.24.438-.613.438-.995s-.145-.755-.438-.995l-1.003-.827a1.125 1.125 0 01-.26-1.431l1.296-2.247a1.125 1.125 0 011.37-.49l1.217.456c.355.133.75.072 1.075-.124.073-.044.146-.087.22-.127.332-.183.582-.495.645-.87l.213-1.281z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0011.667 0l3.181-3.183m-4.991-2.691V5.25a2.25 2.25 0 00-2.25-2.25h-4.5a2.25 2.25 0 00-2.25 2.25v4.992m11.667 0l-3.181 3.183a8.25 8.25 0 01-11.667 0l-3.181-3.183" />
                 </svg>
             </button>
         </header>
@@ -191,13 +170,10 @@
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             
+            const googleSheetCsvUrl = 'https://docs.google.com/spreadsheets/d/1h1wzuSBUff8Cbhdt_FS7uO4GxO3iCNNF/edit?gid=282311752#gid=282311752';
+
             let projectData = [];
             let statusChart, responsibleChart, focusChart;
-
-            const configModal = document.getElementById('configModal');
-            const openConfigBtn = document.getElementById('openConfigBtn');
-            const saveConfigBtn = document.getElementById('saveConfigBtn');
-            const sheetUrlInput = document.getElementById('sheetUrlInput');
             
             const responsibleFilter = document.getElementById('responsibleFilter');
             const statusFilter = document.getElementById('statusFilter');
@@ -210,36 +186,33 @@
             const mainContent = document.querySelector('main');
             const errorBanner = document.getElementById('errorBanner');
             const errorBannerText = document.getElementById('errorBannerText');
+            const refreshBtn = document.getElementById('refreshBtn');
 
-            function showConfigModal() {
-                const savedUrl = localStorage.getItem('googleSheetUrl');
-                if (savedUrl) {
-                    sheetUrlInput.value = savedUrl;
-                }
-                configModal.classList.remove('hidden');
-            }
-
-            function hideConfigModal() {
-                configModal.classList.add('hidden');
-            }
-
-            async function loadProjectData(url) {
+            async function loadProjectData() {
                 loader.style.display = 'flex';
                 mainContent.classList.add('hidden');
                 errorBanner.classList.add('hidden');
-                loaderText.textContent = 'Carregando dados do Google Sheets...';
-                try {
-                    const response = await fetch(url);
-                    if (!response.ok) throw new Error(`A resposta da rede não foi OK: ${response.statusText}`);
-                    const csvText = await response.text();
-                    projectData = parseCsv(csvText);
-                    if (projectData.length === 0) throw new Error('A planilha parece estar vazia ou em um formato incorreto.');
-                    initializeApp();
-                } catch (error) {
-                    console.error('Falha ao carregar dados do Google Sheets:', error);
-                    errorBannerText.textContent = 'Não foi possível carregar os dados da sua planilha. Carregando dados de exemplo. Verifique a URL e as configurações de compartilhamento.';
+                
+                if (googleSheetCsvUrl && googleSheetCsvUrl !== 'URL_DA_SUA_PLANILHA_CSV_VEM_AQUI') {
+                    loaderText.textContent = 'Carregando dados do Google Sheets...';
+                    try {
+                        const response = await fetch(googleSheetCsvUrl + '&t=' + new Date().getTime());
+                        if (!response.ok) throw new Error(`A resposta da rede não foi OK: ${response.statusText}`);
+                        const csvText = await response.text();
+                        projectData = parseCsv(csvText);
+                        if (projectData.length === 0) throw new Error('A planilha parece estar vazia ou em um formato incorreto.');
+                        initializeApp();
+                    } catch (error) {
+                        console.error('Falha ao carregar dados do Google Sheets:', error);
+                        errorBannerText.textContent = 'Não foi possível carregar os dados da sua planilha. Carregando dados de exemplo. Verifique a URL e as configurações de compartilhamento.';
+                        errorBanner.classList.remove('hidden');
+                        loadLocalData();
+                    }
+                } else {
+                    loaderText.textContent = 'Nenhuma planilha configurada. Carregando dados de exemplo...';
+                    errorBannerText.textContent = 'O dashboard está usando dados de exemplo. Para conectar sua planilha, edite o arquivo HTML e insira a URL correta.';
                     errorBanner.classList.remove('hidden');
-                    loadLocalData();
+                    setTimeout(loadLocalData, 500);
                 }
             }
 
@@ -298,6 +271,7 @@
                         openModal(row.dataset.projectId);
                     }
                 });
+                refreshBtn.addEventListener('click', loadProjectData);
             }
 
             function populateFilters() {
@@ -621,26 +595,8 @@
                     modal.classList.add('hidden');
                 }, 300);
             }
-
-            openConfigBtn.addEventListener('click', showConfigModal);
-            saveConfigBtn.addEventListener('click', () => {
-                const url = sheetUrlInput.value.trim();
-                if (url) {
-                    localStorage.setItem('googleSheetUrl', url);
-                    hideConfigModal();
-                    loadProjectData(url);
-                } else {
-                    alert('Por favor, insira uma URL válida.');
-                }
-            });
-
-            const savedUrl = localStorage.getItem('googleSheetUrl');
-            if (savedUrl) {
-                loadProjectData(savedUrl);
-            } else {
-                loaderText.textContent = 'Nenhuma planilha configurada. Carregando dados de exemplo...';
-                setTimeout(loadLocalData, 500);
-            }
+            
+            loadProjectData();
         });
     </script>
 </body>
