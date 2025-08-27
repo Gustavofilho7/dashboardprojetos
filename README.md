@@ -170,7 +170,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             
-            const googleSheetCsvUrl = 'https://docs.google.com/spreadsheets/d/1h1wzuSBUff8Cbhdt_FS7uO4GxO3iCNNF/edit?gid=282311752#gid=282311752';
+            const googleSheetCsvUrl = 'https://docs.google.com/spreadsheets/d/1h1wzuSBUff8Cbhdt_FS7uO4GxO3iCNNF/edit?gid=282311752#gid=282311752.csv';
 
             let projectData = [];
             let statusChart, responsibleChart, focusChart;
