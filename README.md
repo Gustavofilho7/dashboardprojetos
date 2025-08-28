@@ -192,7 +192,7 @@
                 mainContent.classList.add('hidden');
                 errorBanner.classList.add('hidden');
                 
-                if (googleSheetCsvUrl && googleSheetCsvUrl !== 'URL_DA_SUA_PLANILHA_CSV_VEM_AQUI') {
+                if (googleSheetCsvUrl && googleSheetCsvUrl !== 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTVLOLgIIC1vHpJX4tfjfMaUuyehc7y9V1wncKwn20mFjy2OD8e8HLYgA-vXi8SqQ/pub?output=csv') {
                     loaderText.textContent = 'Carregando dados do Google Sheets...';
                     try {
                         const response = await fetch(googleSheetCsvUrl + '&t=' + new Date().getTime());
