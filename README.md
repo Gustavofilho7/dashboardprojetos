@@ -1,8 +1,9 @@
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard de Projetos e Iniciativas| Suporte N2/N3</title>
+    <title>Dashboard de Governança de Projetos | Suporte N2/N3</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -169,7 +170,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             
-            const googleSheetCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTVLOLgIIC1vHpJX4tfjfMaUuyehc7y9V1wncKwn20mFjy2OD8e8HLYgA-vXi8SqQ/pub?gid=282311752&single=true&output=csv';
+            const googleSheetCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQKLMMfDk_DOHEMeQj7Coa6-2aAGy7Xqz7JVkgGZJo10IeMWG581GabHYDUOBQHcqlbPUFqPfeumDK3/pub?output=csv';
 
             let projectData = [];
             let statusChart, responsibleChart, focusChart;
@@ -192,10 +193,13 @@
                 mainContent.classList.add('hidden');
                 errorBanner.classList.add('hidden');
                 
-                if (googleSheetCsvUrl && googleSheetCsvUrl !== 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTVLOLgIIC1vHpJX4tfjfMaUuyehc7y9V1wncKwn20mFjy2OD8e8HLYgA-vXi8SqQ/pub?output=csv') {
+                if (googleSheetCsvUrl && googleSheetCsvUrl !== 'URL_DA_SUA_PLANILHA_CSV_VEM_AQUI') {
                     loaderText.textContent = 'Carregando dados do Google Sheets...';
                     try {
-                        const response = await fetch(googleSheetCsvUrl + '&t=' + new Date().getTime());
+                        const proxyUrl = 'https://api.allorigins.win/raw?url=';
+                        const requestUrl = `${proxyUrl}${encodeURIComponent(googleSheetCsvUrl)}`;
+                        
+                        const response = await fetch(requestUrl);
                         if (!response.ok) throw new Error(`A resposta da rede não foi OK: ${response.statusText}`);
                         const csvText = await response.text();
                         projectData = parseCsv(csvText);
