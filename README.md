@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -170,7 +169,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             
-            const googleSheetCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQKLMMfDk_DOHEMeQj7Coa6-2aAGy7Xqz7JVkgGZJo10IeMWG581GabHYDUOBQHcqlbPUFqPfeumDK3/pub?output=csv';
+            const googleSheetCsvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQKLMMfDk_DOHEMeQj7Coa6-2aAGy7Xqz7JVkgGZJo10IeMWG581GabHYDUOBQHcqlbPUFqPfeumDK3/pubhtml';
 
             let projectData = [];
             let statusChart, responsibleChart, focusChart;
