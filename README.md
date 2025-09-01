@@ -192,7 +192,7 @@
                 mainContent.classList.add('hidden');
                 errorBanner.classList.add('hidden');
                 
-                if (googleSheetCsvUrl && googleSheetCsvUrl !== 'URL_DA_SUA_PLANILHA_CSV_VEM_AQUI') {
+                if (googleSheetCsvUrl && googleSheetCsvUrl !== 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQKLMMfDk_DOHEMeQj7Coa6-2aAGy7Xqz7JVkgGZJo10IeMWG581GabHYDUOBQHcqlbPUFqPfeumDK3/pubhtml') {
                     loaderText.textContent = 'Carregando dados do Google Sheets...';
                     try {
                         const proxyUrl = 'https://api.allorigins.win/raw?url=';
